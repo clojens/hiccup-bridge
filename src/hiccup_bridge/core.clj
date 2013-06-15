@@ -4,7 +4,7 @@
             [hiccup.core :as hic]
             [clojure.java.io :as io]
             [clojure.pprint :as pp]
-            [hozumi.det-enc :as enc]
+            [det-enc.core :as det]
             [org.satta.glob :as glob]))
 
 (def ^{:private true} hicv-dir-name "hicv")
@@ -32,9 +32,16 @@
   "Do convert a Clojure/hiccup file to an HTML one."
   [file-path]
   (spit (replace-extension file-path ".html")
-        (-> (slurp file-path :encoding (enc/detect file-path :default))
+        (-> (slurp file-path :encoding (det/detect file-path :default))
             read-string
             hic/html)))
+
+(defn hiccup->html
+  "Uniform function name wrapped around native hiccup `html` method."
+  [data]
+  (hic/html data))
+
+
 
 (defn hiccup-files->html-files
   "Batch convert many Clojure/hiccup files to HTML ones."
@@ -81,7 +88,8 @@
   [resource-path]
   (if (url? resource-path)
     (java.net.URL. resource-path)
-    (io/reader resource-path :encoding (enc/detect resource-path :default))))
+    (io/reader resource-path :encoding
+               (det/detect resource-path :default))))
 
 (defn html->hiccup
   "Do convert an HTML string to Clojure/hiccup data."
@@ -104,14 +112,15 @@
                             (re-matches #"\n\s*" %)))))))
 
 (defn ensure-under-hicv-dir
-  "Check if files passed as command line arguements are under hicv/ directory."
+  "Check if files passed as command line arguments are under hicv/ directory."
   [^String resource-path]
   (if (url? resource-path)
     (apply str hicv-dir-name "/" (replace {\/ \_} resource-path))
     (if (.startsWith resource-path hicv-dir-name)
       resource-path
       (str hicv-dir-name "/"
-           (or (re-find #"[^/]*$" resource-path) ;;"/ab/cd.html" => "cd.html"
+           (or (re-find #"[^/]*$" resource-path)
+               ;;"/ab/cd.html" => "cd.html"
                "out.html")))))
 
 (defn html-file->hiccup-file

@@ -1,7 +1,7 @@
-(defproject hiccup-bridge "1.0.0-SNAPSHOT"
-  :description "Hiccup to html, html to hiccup."
-  :dependencies [[org.clojure/clojure "1.4.0"]
+(defproject hiccup-bridge "1.0.0"
+  :description "Hiccup to html, html to hiccup. Fork with updated deps for 1.5.x branch."
+  :dependencies [[org.clojure/clojure "1.5.1"]
                  [org.clojars.hozumi/clj-glob "0.1.2"]
-                 [org.clojars.hozumi/clj-det-enc "1.0.0-SNAPSHOT"]
-                 [hiccup "1.0.1"]
-                 [enlive "1.0.1"]])
+                 [clj-det-enc "1.0.0"]
+                 [hiccup "1.0.3"]
+                 [enlive "1.1.1"]])
