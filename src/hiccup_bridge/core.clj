@@ -7,7 +7,9 @@
             [det-enc.core :as det]
             [org.satta.glob :as glob]))
 
-(def ^{:private true} hicv-dir-name "hicv")
+(def ^{:private true
+       :doc "Directory name where to be converted files are."}
+  hicv-dir-name "hicv")
 
 (defn ensure-hicv-dir!
   "Make sure that hicv/ directory exist by creating it when necessary."
@@ -81,10 +83,13 @@
         (reduce conj hiccup-form (map enlive-node->hiccup cnts))))
     node))
 
-(defn url? [s]
+(defn url?
+  "Predicate function to see if input is a valid HTML URL. Returns true if so."
+  [s]
   (re-matches #"https?://.*" s))
 
 (defn get-resource
+  "Obtain a resource from the provided path."
   [resource-path]
   (if (url? resource-path)
     (java.net.URL. resource-path)
