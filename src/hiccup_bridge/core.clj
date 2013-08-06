@@ -9,7 +9,7 @@
 
 (def ^{:private true
        :doc "Directory name where to be converted files are."}
-  hicv-dir-name "hicv")
+  hicv-dir-name "resources/hicv")
 
 (defn ensure-hicv-dir!
   "Make sure that hicv/ directory exist by creating it when necessary."
