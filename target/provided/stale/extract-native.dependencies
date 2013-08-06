@@ -1,1 +1,0 @@
-([:dependencies ([org.clojure/clojure "1.5.1"] [org.clojars.hozumi/clj-glob "0.1.2"] [clj-det-enc/clj-det-enc "1.0.0"] [hiccup/hiccup "1.0.3"] [enlive/enlive "1.1.1"])])

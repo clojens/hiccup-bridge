@@ -5,3 +5,8 @@ pom.xml
 hicv
 lib
 classes
+target/
+.lein-*
+nohup.out
+*.tmp
+
